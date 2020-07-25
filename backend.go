@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/getsentry/sentry-go"
@@ -51,5 +52,9 @@ func main() {
 	r.GET("/chats", chatsHelloHandler)
 
 	// Start server
-	e.Logger.Fatal(e.Start("localhost:1323"))
+	host, ok := os.LookupEnv("HOST")
+	if !ok {
+		host = "localhost:1323"
+	}
+	e.Logger.Fatal(e.Start(host))
 }
