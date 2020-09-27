@@ -18,7 +18,7 @@ var htmlDocument string
 const secret = "Kwfmiojp3__r2@Rmnwfi--eiF@# pioejgv@MNpv i 2i3nrF@#N@# Nwnfegi@F#NI f3@"
 
 func init() {
-	b, err := ioutil.ReadFile("index.html")
+	b, err := ioutil.ReadFile("assets/index.html")
 	if err != nil {
 		fmt.Print(err)
 	}

@@ -1,0 +1,43 @@
+version: "3"
+
+tasks:
+  clean:
+    cmds:
+      - rm -r dist/
+
+  build:
+    cmds:
+      - task: dist-folder
+      - task: build-assets
+      - task: build-backend
+
+  build-backend:
+    deps:
+      - dist-folder
+    cmds:
+      - go build -o dist/backend
+    env:
+      GOOS: linux
+      GOARCH: "386"
+    sources:
+      - "**/*.go"
+    generates:
+      - dist/backend
+
+  build-assets:
+    deps:
+      - dist-folder
+    cmds:
+      - mkdir dist/assets/
+      - cp assets/* dist/assets/
+    sources:
+      - assets/**/*
+    generates:
+      - dist/assets/
+
+  dist-folder:
+    cmds:
+      - mkdir dist/
+      - echo "*" > dist/.gitignore
+    status:
+      - test -f dist/.gitignore
